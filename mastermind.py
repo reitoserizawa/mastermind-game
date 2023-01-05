@@ -1,12 +1,13 @@
 import requests
+import time
 
 # create master code
 def generate_secretcode(difficulty):
     code = requests.get(f"https://www.random.org/integers/?num={difficulty}&min=1&max=6&col=1&base=10&format=plain&rnd=new")
-    code = code.content.split(b'\n')
     # convert byte string to integer
+    code = code.content.split(b'\n')
     code = [int(num.decode()) for num in code[:-1]]
-    print("secret code created")
+    print("\nsecret code created\n")
     return code
 
 # create user's guessed code
@@ -14,7 +15,7 @@ def generate_guessedcode(difficulty):
     guessedcode = []
     while len(guessedcode) < difficulty:
         try:
-            num = int(input(f"guess {len(guessedcode)+1}th number (from 0 to 7): "))
+            num = int(input(f"\t  guess {make_ordinal(len(guessedcode)+1)} number (from 0 to 7): "))
         # if value error, print out error message
         except ValueError:
             print("Please pick a number!")
@@ -24,12 +25,24 @@ def generate_guessedcode(difficulty):
             print("number is out of range, try again!")
         else:
             guessedcode.append(num)
+    print('\n')
     return guessedcode
+
+# assign suffix depending on order of user input for guessed code
+def make_ordinal(num):
+    # if num is between 11 and 13, suffix is th
+    if 11 <= num <= 13:
+        suffix = "th"
+    else:
+        # if 0, suffix is th, else if 1, suffix is st...
+        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(num%10 ,4)]
+    return str(num) + suffix
 
 # create hint
 def create_hint(secretcode, guessedcode):
     correct_num = 0
     correct_location = 0
+    # make copies of codes to avoid chnaging originals since using to display history
     secretcode = secretcode.copy()
     guessedcode = guessedcode.copy()
     # mark matched num to avoid miss counting with duplicate numbers
@@ -41,6 +54,7 @@ def create_hint(secretcode, guessedcode):
             correct_location += 1
     for i in range(len(secretcode)):
         if guessedcode[i] in secretcode:
+            secretcode[secretcode.index(guessedcode[i])] = '*'
             guessedcode[i] = '-'
             correct_num += 1
             
@@ -51,54 +65,80 @@ def create_hint(secretcode, guessedcode):
         return f"{correct_num} correct number and {correct_location} correct location!"
 
 def set_difficulty():
-    print("please select the difficulty")
+    print("\nplease select the difficulty")
     while True:
-        difficulty = input("easy: 4 numbers of secret code\nmedium: 5 numbers of secret code\nhard: 6 numbers of secret code\n")
-        if difficulty == "easy": return 4
-        elif difficulty == "medium": return 5
-        elif difficulty == "hard": return 6
+        difficulty = input("(e)asy: 4 numbers of secret code\n(m)edium: 5 numbers of secret code\n(h)ard: 6 numbers of secret code\n").lower()
+        if difficulty == "easy" or difficulty == "e" : return 4
+        elif difficulty == "medium" or difficulty == "m": return 5
+        elif difficulty == "hard" or difficulty == "h": return 6
         else:
-            print("please select the valid difficulty(easy/medium/hard)")
+            print("please select the valid difficulty")
+
+def display_history(used_code):
+    i = 1
+    for k, v in used_code.items():
+        print(f"\t  ROUND {i}")
+        print("\t------------------------------------------------------")
+        print(f"\t  Guess: {k}")
+        print(f"\t  Hint: {v}")
+        print("\t------------------------------------------------------")
+        i += 1
+
+def display_result(ranking, secretcode, life, total_time):
+    name = input("congratulations! you won! what's your name?\n")
+    minutes, seconds = divmod(total_time, 60)
+    rank = 1
+    ranking.append({"name": name, "code": secretcode, "time": total_time})
+    ranking.sort(key=lambda x:x["time"])
+    print(f"{name}, you guessed {secretcode} in {10 - life + 1} guesses over {minutes}min{seconds}sec\n")
+    print("\t------------------------------------------------------")
+    print("\t  Top 5 Player")
+    print("\t------------------------------------------------------")
+    for i in ranking:
+        print(f"{rank}. {i['name']} decoded {i['code']} over {i['time']} seconds!")
+        rank +=1
 
 def game():
     life = 10
     difficulty = set_difficulty()
     secretcode = generate_secretcode(difficulty)
+    print(secretcode)
     used_code = dict()
+    # used to store ranking results
+    ranking = []
     while life != 0:
-        print(secretcode)
-        print("\n")
-        print(f"you have {life} life left!")
+        # start timer for ranking
+        start_time = time.time()
+        print(f"\t  Life Remaining: {life}")
+        print("\t------------------------------------------------------")
         if len(used_code) > 0:
-            print("used codes and hints:")
-            for k, v in used_code.items():
-                print(f"\tcode: {k}")
-                print(f"\thint: {v}")
-                print("\n")
+            display_history(used_code)
         guessedcode = generate_guessedcode(difficulty)
         if str(guessedcode) in used_code.keys():
             print("you already used the code! pick another one!")
             continue
         if secretcode == guessedcode:
-            print("congratulations! you won!")
+            # end timer
+            end_time = time.time()
+            total_time = int(end_time - start_time)
+            display_result(ranking, secretcode, life, total_time)
             return
         hint = create_hint(secretcode, guessedcode)
-        print(hint)
         used_code[f"{guessedcode}"] = hint
         life -= 1
     print("game over! you lost...")
 
 if __name__ == "__main__":
     while True:
-        start = input("would you like to play mastermind, read instructions, or quit?\n")
-        if start == "play":
+        start = input("would you like to (p)lay mastermind, read (i)nstructions, or (q)uit?\n").lower()
+        if start == "play" or start == "p":
             game()
-        elif start == "instructions":
+        elif start == "instructions" or start == "i":
             print("at the start, computer will randomly select a pattern of numbers from a total of 8 different numbers(from 0 to 7)")
-            print("a player will have 10 lifes to guess the number combinations")
-            print("at the end of each fuessm computer will provide a feedback")
-        elif start == "quit":
-            print("thank you")
+            print("a player will have 10 lives to guess the number combinations")
+            print("at the end of each fuessm computer will provide a feedback\n")
+        elif start == "quit" or start == "q":
+            print("bye!")
             exit()
         else:
-            print("please type the valid words")
+            print("please type the valid words\n")
