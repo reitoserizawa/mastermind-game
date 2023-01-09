@@ -45,7 +45,7 @@ def play(game, code_maker):
             # end timer
             end_time = time.time()
             total_time = int(end_time - start_time)
-            game.winner = input("congratulations! plz type in youyr name: ")
+            game.winner = input("congratulations, you won! please tell me your name: ")
             ranking.insert_ranking(game)
             ranking.display_ranking()
             # below needs adding
@@ -63,16 +63,18 @@ def play(game, code_maker):
 if __name__ == "__main__":
     while True:
         start = input("would you like to (p)lay mastermind, read (i)nstructions, or (q)uit?\n").lower()
-        if start == "play" or start == "p":
+        if start == "play" or start == "p" or start == "mastermind":
             game = Game()
             # play against the computer
-            auto_mode = input("do you wanna be a code (breaker) or (maker)?").lower()
-            if auto_mode == "breaker":
+            auto_mode = input("\ndo you wanna be a code (b)reaker or (m)aker?\n").lower()
+            if auto_mode == "b" or auto_mode == "breaker":
                 code_maker = CodeMaker(True, game.difficulty)
                 play(game, code_maker)
-            else:
+            elif auto_mode == "m" or auto_mode == "maker":
                 code_maker = CodeMaker(False, game.difficulty)
                 play(game, code_maker)
+            else:
+                print("please enter b or m")
             # play within friends
         elif start == "instructions" or start == "i":
             Game.show_instructions()
@@ -80,4 +82,4 @@ if __name__ == "__main__":
             print("bye!")
             exit()
         else:
-            print("please type the valid words\n")
+            print("please type a valid word\n")

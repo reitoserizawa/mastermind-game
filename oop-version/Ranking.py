@@ -13,6 +13,7 @@ class Ranking:
         print("\t  Top Players")
         print("\t------------------------------------------------------")
         for i in self.ranking[:5]:
-            print(f"\t  {number}. {i.winner} won {i.difficulty} mode with {10 - i.attempt}")
+            difficulty_mode = "easy" if i.difficulty == 4 else "medium" if i.difficulty == 5 else "hard"
+            print(f"\t  {number}. {i.winner} won {difficulty_mode} mode with {10 - i.attempt} attempts!")
             number +=1
         print("\n")

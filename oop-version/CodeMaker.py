@@ -15,6 +15,7 @@ class CodeMaker:
 
     def create_secret_code(self, difficulty):
         secret_code = []
+        print("\n")
         while len(secret_code) < difficulty:
             try:
                 num = int(input(f"Pick {self.make_ordinal(len(secret_code)+1)} number (from 0 to 7): "))
