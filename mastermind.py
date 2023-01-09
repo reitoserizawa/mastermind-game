@@ -1,5 +1,10 @@
 import requests
 import time
+import sys
+from threading import Thread
+
+# used to store ranking results even after returning game() func
+ranking = []
 
 # create master code
 def generate_secretcode(difficulty):
@@ -57,13 +62,13 @@ def create_hint(secretcode, guessedcode):
             secretcode[secretcode.index(guessedcode[i])] = '*'
             guessedcode[i] = '-'
             correct_num += 1
-            
-    # return message
+    # return hint
     if correct_num == 0 and correct_location == 0:
         return "all incorrect!"
     else:
         return f"{correct_num} correct number and {correct_location} correct location!"
 
+# pick difficulty (easy = 4, medium = 5, hard = 6)
 def set_difficulty():
     print("\nplease select the difficulty")
     while True:
@@ -74,6 +79,7 @@ def set_difficulty():
         else:
             print("please select the valid difficulty")
 
+# display guessed code and hint
 def display_history(used_code):
     i = 1
     for k, v in used_code.items():
@@ -84,19 +90,32 @@ def display_history(used_code):
         print("\t------------------------------------------------------")
         i += 1
 
+# display result with ranking
 def display_result(ranking, secretcode, life, total_time):
     name = input("congratulations! you won! what's your name?\n")
-    minutes, seconds = divmod(total_time, 60)
     rank = 1
+    # convert total time to minutes and seconds
+    minutes, seconds = divmod(total_time, 60)
     ranking.append({"name": name, "code": secretcode, "time": total_time})
+    # rank player depending on time spent to match secretcode
     ranking.sort(key=lambda x:x["time"])
-    print(f"{name}, you guessed {secretcode} in {10 - life + 1} guesses over {minutes}min{seconds}sec\n")
+    print(f"{name}, you guessed {secretcode} in {10 - life + 1} guesses over {minutes}min {seconds}sec\n")
+    # show ranking
     print("\t------------------------------------------------------")
-    print("\t  Top 5 Player")
+    print("\t  Top Players")
     print("\t------------------------------------------------------")
-    for i in ranking:
-        print(f"{rank}. {i['name']} decoded {i['code']} over {i['time']} seconds!")
+    for i in ranking[:5]:
+        minutes, seconds = divmod(i['time'], 60)
+        print(f"\t  {rank}. {i['name']} decoded {i['code']} over {minutes}min {seconds}sec!")
         rank +=1
+    print("\n")
+
+def countdown(num):
+    while num >= 0:
+        print('\r00:{:02} left'.format(num), end="")
+        time.sleep(1)
+        num -= 1
+    print("TIME OUT!")
 
 def game():
     life = 10
@@ -104,15 +123,16 @@ def game():
     secretcode = generate_secretcode(difficulty)
     print(secretcode)
     used_code = dict()
-    # used to store ranking results
-    ranking = []
-    while life != 0:
+    while life > 0:
         # start timer for ranking
         start_time = time.time()
         print(f"\t  Life Remaining: {life}")
         print("\t------------------------------------------------------")
         if len(used_code) > 0:
             display_history(used_code)
+        # start countdown timer for guess code input
+        # Thread(target=countdown, args=[30]).start()
+        # guessedcode = Thread(generate_guessedcode(difficulty)).start()
         guessedcode = generate_guessedcode(difficulty)
         if str(guessedcode) in used_code.keys():
             print("you already used the code! pick another one!")
@@ -126,7 +146,9 @@ def game():
         hint = create_hint(secretcode, guessedcode)
         used_code[f"{guessedcode}"] = hint
         life -= 1
-    print("game over! you lost...")
+    if life == 0:
+        print("game over! you lost...")
+        return
 
 if __name__ == "__main__":
     while True:
@@ -136,7 +158,7 @@ if __name__ == "__main__":
         elif start == "instructions" or start == "i":
             print("at the start, computer will randomly select a pattern of numbers from a total of 8 different numbers(from 0 to 7)")
             print("a player will have 10 lives to guess the number combinations")
-            print("at the end of each fuessm computer will provide a feedback\n")
+            print("at the end of each guess, computer will provide a feedback\n")
         elif start == "quit" or start == "q":
             print("bye!")
             exit()
