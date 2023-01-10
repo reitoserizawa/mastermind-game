@@ -1,5 +1,4 @@
 import requests
-import os
 import __main__
 
 class CodeMaker:
@@ -37,5 +36,5 @@ class CodeMaker:
                 print("Number is out of range, try again!")
             else:
                 secret_code.append(num)
-        os.system('clear')
+        __main__.clear_console()
         return secret_code

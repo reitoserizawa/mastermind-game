@@ -15,4 +15,4 @@ class CodeBreaker:
             elif show_history == "n" or show_history == "no":
                 return
             else:
-                print("\t  Please type a valid answer.")
+                print("\t  Please type a valid answer. (y/n)")

@@ -14,9 +14,9 @@ class Game:
                     if player_num >= 1 and player_num <= 4:
                         return int(player_num)
                     else:
-                        raise ValueError
+                        print("Please type a number from 1 to 4.")
                 except ValueError:
-                    print("Please enter a valid number from 1 to 4.")
+                    print("Please type a number.")
                     continue
         else:
             while True:
@@ -25,9 +25,9 @@ class Game:
                     if player_num >= 2 and player_num <= 4:
                         return int(player_num)
                     else:
-                        raise ValueError
+                        print("Please type a number from 2 to 4.")
                 except ValueError:
-                    print("Please enter a valid number from 2 to 4.")
+                    print("Please type a number.")
                     continue
     
     @staticmethod
@@ -36,11 +36,11 @@ class Game:
         print("2. vs. Friends (play against your friend's secret code)")
         print("------------------------------------------------------")
         while True:
-            game_mode = input("Please pick the game mode (1 or 2): ")
+            game_mode = input("Please pick the game mode (1/2): ")
             if game_mode == "1": return True
             elif game_mode == "2": return False
             else:
-                print("Please pick a valid number.")
+                print("Please pick a number. (1/2)")
     
     @staticmethod
     def set_difficulty():
@@ -55,7 +55,7 @@ class Game:
             elif difficulty == "medium" or difficulty == "m" or difficulty == "5": return 5
             elif difficulty == "hard" or difficulty == "h" or difficulty == "6": return 6
             else:
-                print("Please select the valid difficulty.")
+                print("Please select a valid difficulty. (E/M/H)")
     
     @staticmethod
     def show_instructions():
