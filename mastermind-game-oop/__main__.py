@@ -19,11 +19,11 @@ def clear_console():
 
 # add an oridnal suffix to the number and return as a string
 def make_ordinal(num):
-        if 11 <= num <= 13:
-            suffix = "th"
-        else:
-            suffix = ['th', 'st', 'nd', 'rd', 'th'][min(num%10 ,4)]
-        return str(num) + suffix
+    if 11 <= num <= 13:
+        suffix = "th"
+    else:
+        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(num%10 ,4)]
+    return str(num) + suffix
 
 def play(game, code_maker, player_list):
     clear_console()

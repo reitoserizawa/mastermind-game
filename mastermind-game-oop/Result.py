@@ -1,3 +1,4 @@
+# this class holds the information of who won the game
 class Result:
     def __init__(self, name, is_code_maker, secret_code, attempt):
         self.name = name

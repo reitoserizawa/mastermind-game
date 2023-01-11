@@ -5,13 +5,15 @@ import __main__
 class CodeMaker:
     def __init__(self):
         # if it is computer, auto generate the secret code. otherwise the player pick the code
-        self.auto_mode = self.set_computer()
+        self.auto_mode = self.set_auto_mode()
         self.name = "Computer" if self.auto_mode == True else input("\nCode maker, please enter your name: ")
+        # the difficulty relates to how many numbers a secret code has
         self.difficulty = self.set_difficulty()
         self.secret_code = self.autogenerate_secret_code(self.difficulty) if self.auto_mode else self.create_secret_code(self.difficulty)
     
+    # ask the player if they want to play agains the computer or friends
     @staticmethod
-    def set_computer():
+    def set_auto_mode():
         print("1. vs. Computer (play against the computer's secret code)")
         print("\t1 to 4 players: All the players will be code breakers")
         print()
@@ -25,6 +27,7 @@ class CodeMaker:
             else:
                 print("Please pick a number. (1/2)")
     
+    # the dificculty decides how many numbers are used in the secret code
     @staticmethod
     def set_difficulty():
         print()
@@ -40,12 +43,12 @@ class CodeMaker:
             else:
                 print("Please select a valid difficulty. (E/M/H)")
     
+    # if the player is against the computer, it automatically generates a secret code form the api
     @staticmethod
     def autogenerate_secret_code(difficulty):
-        secret_code = requests.get(f"https://www.random.org/integers/?num={difficulty}&min=1&max=6&col=1&base=10&format=plain&rnd=new") #api returns a byte string of the secret code
-        # convert byte string to integer
-        secret_code = secret_code.content.split(b'\n')
-        secret_code = [int(num.decode()) for num in secret_code[:-1]]
+        secret_code = requests.get(f"https://www.random.org/integers/?num={difficulty}&min=1&max=6&col=1&base=10&format=plain&rnd=new") # fetch the api data
+        secret_code = secret_code.content.split(b'\n') # access the byte string data from the api and convert it into a string diving by the new line
+        secret_code = [int(num.decode()) for num in secret_code[:-1]] # convert the byte string to integer
         print()
         print("The secret code is created!")
         return secret_code
@@ -56,18 +59,17 @@ class CodeMaker:
         print("")
         print("Please make a number combination for the secret code.")
         print("------------------------------------------------------")
-        # the player will pick the number combination - the number of its set depends on the difficulty
+        # the player will pick the number combination depeding on the difficulty
         while len(secret_code) < difficulty:
+            # if user input is not a number or number is out of the range, print out error message
             try:
                 num = int(input(f"Pick {__main__.make_ordinal(len(secret_code)+1)} number (from 0 to 7): "))
-            # if user input is not a number, print out error message
+                if num < 0 or num > 7:
+                    print("Number is out of range, try again!")
+                else:
+                    secret_code.append(num)
             except ValueError:
                 print("Please pick a number!")
                 continue
-            # if number is out of the range, print out the error message
-            if num < 0 or num > 7:
-                print("Number is out of range, try again!")
-            else:
-                secret_code.append(num)
         __main__.clear_console()
         return secret_code
