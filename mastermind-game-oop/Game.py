@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class Game:
     def __init__(self):
         self.attempt = 10
@@ -62,6 +63,12 @@ class Game:
             elif difficulty == "hard" or difficulty == "h" or difficulty == "6": return 6
             else:
                 print("Please select the valid difficulty.")
+=======
+# this class holds how many attempts code makers have
+class Game:
+    def __init__(self):
+        self.attempt = 10
+>>>>>>> parent of 66ecbff (game data sturcture edited)
     
     @staticmethod
     def show_instructions():
