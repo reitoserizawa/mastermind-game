@@ -1,9 +1,8 @@
-from History import History 
+from History import History
 
-# this class is the code maker and related to the history list class to show their history
-class CodeBreaker:
-    def __init__(self, name):
-        self.name = name
+# this class connects with the history and add them in a list
+class HistoryList:
+    def __init__(self):
         self.history_list = []
     
     def add_history(self, guess, hint):

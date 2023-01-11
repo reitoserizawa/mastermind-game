@@ -1,7 +1,12 @@
+from CodeMaker import CodeMaker
+from CodeBreakerList import CodeBreakerList
+
 # this class holds how many attempts code makers have
 class Game:
     def __init__(self):
         self.attempt = 10
+        self.code_maker = CodeMaker()
+        self.code_breaker_list = CodeBreakerList()
     
     @staticmethod
     def show_instructions():
@@ -16,3 +21,9 @@ class Game:
         print("\t 2. Correct Location: From the numbers you used, how many of them are in the right location")
         print("Please enjoy this game!")
         print()
+    
+    def game_over(self):
+        if self.attempt == 0:
+            return False
+        else:
+            return True
