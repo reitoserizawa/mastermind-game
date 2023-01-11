@@ -7,7 +7,7 @@ class Ranking:
     def insert_ranking(self, result):
         self.ranking.append(result)
         # sort by how many attemps code breakers made an attemp to guess the secre code
-        self.ranking.sort(key=lambda result:(result.turn))
+        self.ranking.sort(key=lambda result:(result.attempt))
     
     def display_ranking(self):
         print("\t------------------------------------------------------")
