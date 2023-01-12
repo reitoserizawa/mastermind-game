@@ -1,11 +1,8 @@
-from CodeMaker import CodeMaker
-from CodeBreakerList import CodeBreakerList
-from Ranking import Ranking
-
 class Game:
     def __init__(self):
         self.attempt = 10
     
+    # while attempts are left, the game goes on
     def is_continued(self):
         if self.attempt == 0:
             return False

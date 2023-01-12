@@ -20,5 +20,5 @@ class Guess:
             except ValueError:
                 print("\t  Please pick a number!")
                 continue
-        print('\n')
+        print()
         return guess

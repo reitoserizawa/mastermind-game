@@ -6,9 +6,21 @@ from CodeBreakerList import CodeBreakerList
 from Guess import Guess
 from Hint import Hint
 from Result import Result
-from Ranking import Ranking
+import app # connection to the database
 
-ranking = Ranking() # hold the result of the game if the code breaker breaks the secret code
+# show each result as a ranking
+def display_ranking():
+    # fetch the list of results from the database
+    data = app.get_result()
+    print("\t------------------------------------------------------")
+    print("\t  Top Code Breakers")
+    print("\t------------------------------------------------------")
+    if len(data) == 0:
+        print("\t  None is in the ranking...")
+    # each reuslt item is a tuple so print by the index
+    for i in range(len(data)):
+        print(f"\t  {i+1}. {data[i][0]} decoded {data[i][1]} in the {make_ordinal(data[i][2])} round!")
+    print()
 
 def clear_console():
     # clear the terminal depeneding on the os system
@@ -53,14 +65,13 @@ def play(game, code_maker, code_breaker_list):
                 else:
                     break
             # if the guess matces the secret code:
-                # 1. print the result
-                # 2. insert the result in the ranking and display it
+                # 1. create the result
+                # 2. insert the result in the database and display it in a ranking
             if guess.guess == code_maker.secret_code:
-                print(f"\t  Congratulations, {player.name}! You won!")
-                result = Result(player.name, False, code_maker.secret_code, 10-game.attempt+1)
-                print(f"\t  {result}")
-                ranking.insert_ranking(result)
-                ranking.display_ranking()
+                result = Result(player.name, code_maker.secret_code, 10-game.attempt+1)
+                app.insert_result(result)
+                # ranking.insert_ranking(result)
+                display_ranking()
                 return
             # create the hint and add to the player's history with the guess
             hint = Hint(code_maker.secret_code, guess.guess)
@@ -74,16 +85,15 @@ def play(game, code_maker, code_breaker_list):
     # when there is no more attempt left, the code maker wins the game
     print()
     print("\t  There is no more life left...")
-    result = Result(code_maker.name, True, code_maker.secret_code, game.attempt)
-    print(f"\t  {result}")
-    ranking.display_ranking()
+    print(f"Congratulations, {code_maker.name}! You won as a code maker with a secret code of {code_maker.secret_code}")
+    display_ranking()
     return
 
 if __name__ == "__main__":
     clear_console()
     print("WELCOME TO MATERMIND GAME!")
     while True:
-        start = input("Would you like to (p)lay mastermind, read (i)nstructions, or (q)uit?: ").lower()
+        start = input("Would you like to (p)lay mastermind game, read (i)nstructions, check the (r)anking, or (q)uit?: ").lower()
         print()
         if start == "play" or start == "p":
             code_maker = CodeMaker()
@@ -92,6 +102,8 @@ if __name__ == "__main__":
             play(game, code_maker, code_breaker_list)
         elif start == "instructions" or start == "i":
             Game.show_instructions()
+        elif start == "r" or start == "ranking":
+            display_ranking()
         elif start == "quit" or start == "q":
             print("Thank you, bye!")
             exit()
