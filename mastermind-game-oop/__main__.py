@@ -1,8 +1,6 @@
 import os
 from sys import platform
 from Game import Game
-from CodeMaker import CodeMaker
-from CodeBreakerList import CodeBreakerList
 from Guess import Guess
 from Hint import Hint
 from Result import Result
@@ -37,34 +35,26 @@ def play(game):
                 #  2. ask for code breaker's input to show the history (avoid showing the history to others accidentally)
             if len(game.code_breaker_list.code_breaker_list) > 1:
                 print(f"\t  {player.name}'s Turn...!\n")
-                if len(player.history.history) >= 1:
+                if len(player.history_list) >= 1:
                     input("\t  Please enter to see your history of guess(es) and hint(s): ")
                     print()
-                    player.history.display_history()
+                    player.display_history_list()
                     print()
             print(f"\t  Life Remaining: {game.attempt}")
             print("\t------------------------------------------------------")
             # if the same guess is input, ask for another guess
-            while True:
-                guess = Guess(game.code_maker.difficulty)
-                if str(guess.guess) in player.history.history.keys():
-                    print("\t  You already used the number combination, pick another one!")
-                    continue
-                else:
-                    break
+            player.add_history(game.code_maker.difficulty, game.code_maker.secret_code)
             # if the guess matces the secret code:
                 # 1. print the result
                 # 2. insert the result in the ranking and display it
-            if guess.guess == game.code_maker.secret_code:
-                print(f"\t  Congratulations, {player.name}! You won!")
-                result = Result(player.name, False, game.code_maker.secret_code, 10-game.attempt+1)
-                print(f"\t  {result}")
-                ranking.insert_ranking(result)
-                ranking.display_ranking()
-                return
+            # if guess.guess == game.code_maker.secret_code:
+            #     print(f"\t  Congratulations, {player.name}! You won!")
+            #     result = Result(player.name, False, game.code_maker.secret_code, 10-game.attempt+1)
+            #     print(f"\t  {result}")
+            #     ranking.insert_ranking(result)
+            #     ranking.display_ranking()
+            #     return
             # create the hint and add to the player's history with the guess
-            hint = Hint(game.code_maker.secret_code, guess.guess)
-            player.history.add_history(guess.guess, hint)
             player.history.display_history()
             # if there are multiple code breakers, ask for the input to go to the next person
             if len(game.code_breaker_list.code_breaker_list) > 1:
