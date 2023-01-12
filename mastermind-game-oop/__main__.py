@@ -8,7 +8,7 @@ from Hint import Hint
 from Result import Result
 from Ranking import Ranking
 
-ranking = Ranking() #hold the result of the game if the code breaker breaks the secret code
+ranking = Ranking() # hold the result of the game if the code breaker breaks the secret code
 
 def clear_console():
     # clear the terminal depeneding on the os system
