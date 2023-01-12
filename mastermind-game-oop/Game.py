@@ -5,9 +5,6 @@ from Ranking import Ranking
 class Game:
     def __init__(self):
         self.attempt = 10
-        self.code_maker = CodeMaker()
-        self.code_breaker_list = CodeBreakerList()
-        self.ranking = Ranking()
     
     def is_continued(self):
         if self.attempt == 0:

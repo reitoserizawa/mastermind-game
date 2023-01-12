@@ -25,17 +25,17 @@ def make_ordinal(num):
         suffix = ['th', 'st', 'nd', 'rd', 'th'][min(num%10 ,4)]
     return str(num) + suffix
 
-def play(game):
+def play(game, code_maker, code_breaker_list):
     clear_console()
     print("\t  GAME START!")
     # loop the code breaker's action while there is a game attempt left
     while game.is_continued():
-        for player in game.code_breaker_list.code_breaker_list:
+        for player in code_breaker_list.code_breaker_list:
             print()
             # if there are multiple code breakers:
                 #  1. show whose turn it is
                 #  2. ask for code breaker's input to show the history (avoid showing the history to others accidentally)
-            if len(game.code_breaker_list.code_breaker_list) > 1:
+            if len(code_breaker_list.code_breaker_list) > 1:
                 print(f"\t  {player.name}'s Turn...!\n")
                 if len(player.history.history) >= 1:
                     input("\t  Please enter to see your history of guess(es) and hint(s): ")
@@ -46,7 +46,7 @@ def play(game):
             print("\t------------------------------------------------------")
             # if the same guess is input, ask for another guess
             while True:
-                guess = Guess(game.code_maker.difficulty)
+                guess = Guess(code_maker.difficulty)
                 if str(guess.guess) in player.history.history.keys():
                     print("\t  You already used the number combination, pick another one!")
                     continue
@@ -55,26 +55,26 @@ def play(game):
             # if the guess matces the secret code:
                 # 1. print the result
                 # 2. insert the result in the ranking and display it
-            if guess.guess == game.code_maker.secret_code:
+            if guess.guess == code_maker.secret_code:
                 print(f"\t  Congratulations, {player.name}! You won!")
-                result = Result(player.name, False, game.code_maker.secret_code, 10-game.attempt+1)
+                result = Result(player.name, False, code_maker.secret_code, 10-game.attempt+1)
                 print(f"\t  {result}")
                 ranking.insert_ranking(result)
                 ranking.display_ranking()
                 return
             # create the hint and add to the player's history with the guess
-            hint = Hint(game.code_maker.secret_code, guess.guess)
+            hint = Hint(code_maker.secret_code, guess.guess)
             player.history.add_history(guess.guess, hint)
             player.history.display_history()
             # if there are multiple code breakers, ask for the input to go to the next person
-            if len(game.code_breaker_list.code_breaker_list) > 1:
+            if len(code_breaker_list.code_breaker_list) > 1:
                 input("\t  Please enter to go to the next code breaker: ")
                 clear_console()
         game.attempt -= 1
     # when there is no more attempt left, the code maker wins the game
     print()
     print("\t  There is no more life left...")
-    result = Result(game.code_maker.name, True, game.code_maker.secret_code, game.attempt)
+    result = Result(code_maker.name, True, code_maker.secret_code, game.attempt)
     print(f"\t  {result}")
     ranking.display_ranking()
     return
@@ -86,8 +86,10 @@ if __name__ == "__main__":
         start = input("Would you like to (p)lay mastermind, read (i)nstructions, or (q)uit?: ").lower()
         print()
         if start == "play" or start == "p":
+            code_maker = CodeMaker()
+            code_breaker_list = CodeBreakerList()
             game = Game()
-            play(game)
+            play(game, code_maker, code_breaker_list)
         elif start == "instructions" or start == "i":
             Game.show_instructions()
         elif start == "quit" or start == "q":
