@@ -5,8 +5,7 @@ class Guess:
     def __init__(self, difficulty):
         self.guess = self.generate_guess(difficulty)
     
-    @staticmethod
-    def generate_guess(difficulty):
+    def generate_guess(self, difficulty):
         guess = []
         # make a guess till the guess matches the number of difficulty(how many numbers a secret code has)
         while len(guess) < difficulty:

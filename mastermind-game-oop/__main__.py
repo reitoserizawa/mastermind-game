@@ -85,8 +85,8 @@ def play(game, code_maker, code_breaker_list):
         game.attempt -= 1
     # when there is no more attempt left, the code maker wins the game
     print()
-    print("\t  There is no more life left...")
-    print(f"Congratulations, {code_maker.name}! You won as a code maker with a secret code of {code_maker.secret_code}")
+    print("\t  There is no more life left for code breakers...")
+    print(f"\t  {code_maker.name} won as a code maker with a secret code of {code_maker.secret_code}")
     display_ranking()
     return
 

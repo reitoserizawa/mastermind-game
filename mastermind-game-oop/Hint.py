@@ -5,8 +5,7 @@ class Hint:
     def __init__(self, secret_code, guess):
         self.correct_num, self.correct_location = self.generate_hint(secret_code, guess)
     
-    @staticmethod
-    def generate_hint(secret_code, guess):
+    def generate_hint(self, secret_code, guess):
         # make copies of the secret code and guess to avoid chnaging originals since using to display history
         secret_code = secret_code.copy()
         guess = guess.copy()

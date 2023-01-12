@@ -1,7 +1,7 @@
 import __main__
 from CodeBreaker import CodeBreaker
 
-# this class holds the number of code breakers and each class in the list
+# this class holds the number of code breakers and each object in the list
 class CodeBreakerList:
     def __init__(self):
         self.code_breaker_list = self.set_code_breaker_list()
