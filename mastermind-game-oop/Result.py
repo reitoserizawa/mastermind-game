@@ -6,6 +6,3 @@ class Result:
         self.name = name
         self.secret_code = secret_code
         self.round = round
-    
-    def __repr__(self):
-        return f'\t  Congratulations, {self.name}! You won as a code breaker!'

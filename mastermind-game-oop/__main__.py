@@ -69,6 +69,7 @@ def play(game, code_maker, code_breaker_list):
                 # 2. insert the result in the database and display it in a ranking
             if guess.guess == code_maker.secret_code:
                 result = Result(player.name, code_maker.secret_code, 10-game.attempt+1)
+                print(f'\t  Congratulations, {player.name}! You won as a code breaker!')
                 app.insert_result(result)
                 # ranking.insert_ranking(result)
                 display_ranking()

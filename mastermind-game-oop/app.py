@@ -6,7 +6,7 @@ connection = sqlite3.connect('mastermind_game.db')
 # creating a cursor object to insert the new data and fetch the data
 c = connection.cursor()
 
-# create a table for the result class
+# create a table for the result
 # c.execute("""CREATE TABLE result (
 #     name text,
 #     secret_code text,
@@ -23,7 +23,7 @@ def convert_list_to_string(data):
 
 # show the top 5 results in the ascending order of the round they took to figure out a secret code
 def get_result():
-    c.execute("SELECT * FROM result ORDER BY round ASC LIMIT 5")
+    c.execute("SELECT * FROM result ORDER BY round ASC LIMIT 10")
     return c.fetchall()
 
 # commit the change
