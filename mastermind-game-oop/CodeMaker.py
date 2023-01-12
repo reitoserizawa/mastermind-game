@@ -21,11 +21,14 @@ class CodeMaker:
         print("\t2 to 5 players: 1 player will be a code maker and others will be code breakers")
         print("------------------------------------------------------")
         while True:
-            game_mode = input("Please pick the game mode (1/2): ")
-            if game_mode == "1": return True
-            elif game_mode == "2": return False
-            else:
-                print("Please pick a number. (1/2)")
+            try:
+                game_mode = int(input("Please pick the game mode (1/2): "))
+                if game_mode == 1: return True
+                elif game_mode == 2: return False
+                else:
+                    print("Please pick a valid number 1 or 2.")
+            except ValueError:
+                print("Please pick a number 1 or 2.")
     
     # the dificculty decides how many numbers are used in the secret code
     @staticmethod

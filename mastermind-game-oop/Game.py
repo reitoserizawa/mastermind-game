@@ -1,74 +1,19 @@
-<<<<<<< HEAD
+from CodeMaker import CodeMaker
+from CodeBreakerList import CodeBreakerList
+from Ranking import Ranking
+
 class Game:
     def __init__(self):
         self.attempt = 10
-        self.is_computer = self.set_computer()
-        self.difficulty = self.set_difficulty()
-        self.player_num = self.set_player_number()
+        self.code_maker = CodeMaker()
+        self.code_breaker_list = CodeBreakerList()
+        self.ranking = Ranking()
     
-    def set_player_number(self):
-        print()
-        if self.is_computer:
-            while True:
-                try:
-                    player_num = int(input("How many players? (from 1 to 4): "))
-                    if player_num >= 1 and player_num <= 4:
-                        return int(player_num)
-                    else:
-                        raise ValueError
-                except ValueError:
-                    print("Please enter a valid number from 1 to 4.")
-                    continue
-        else:
-            while True:
-                try:
-                    player_num = int(input("How many players? (from 2 to 4): "))
-                    if player_num >= 2 and player_num <= 4:
-                        return int(player_num)
-                    else:
-                        raise ValueError
-                except ValueError:
-                    print("Please enter a valid number from 2 to 4.")
-                    continue
-    
-    def game_over(self):
+    def is_continued(self):
         if self.attempt == 0:
             return False
         else:
             return True
-    
-    @staticmethod
-    def set_computer():
-        print("1. vs. Computer (play against the computer's secret code)")
-        print("2. vs. Friends (play against your friend's secret code)")
-        print("------------------------------------------------------")
-        while True:
-            game_mode = input("Please pick the game mode (1 or 2): ")
-            if game_mode == "1": return True
-            elif game_mode == "2": return False
-            else:
-                print("Please pick a valid number.")
-    
-    @staticmethod
-    def set_difficulty():
-        print()
-        print("(E)asy: 4 numbers of secret code")
-        print("(M)edium: 5 numbers of secret code")
-        print("(H)ard: 6 numbers of secret code")
-        print("------------------------------------------------------")
-        while True:
-            difficulty = input("Please select the difficulty level: ").lower()
-            if difficulty == "easy" or difficulty == "e" or difficulty == "4" : return 4
-            elif difficulty == "medium" or difficulty == "m" or difficulty == "5": return 5
-            elif difficulty == "hard" or difficulty == "h" or difficulty == "6": return 6
-            else:
-                print("Please select the valid difficulty.")
-=======
-# this class holds how many attempts code makers have
-class Game:
-    def __init__(self):
-        self.attempt = 10
->>>>>>> parent of 66ecbff (game data sturcture edited)
     
     @staticmethod
     def show_instructions():
