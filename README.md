@@ -1,10 +1,11 @@
 <h1>Mastermind Game</h1>
+<p>This is Mastermind Game created by Python3 and SQLite. This game is for code breakers to guess the number combination of the secret code created by a code maker. You can play against the computer or friends. Code breakers have 10 attempts to guess the secret code.</p>
 
 <h2>Required Technology</h2>
 
-Python3 - ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-
-Git - ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+<p>Language: Python3</p>
+<p>OS: macOS, Linux or Windows</p>
+<p>Other: Git (to clone this repo)</p>
 
 
 <h2>How to Play</h2>
@@ -29,9 +30,23 @@ python3 mastermind-game-oop
 <h2>File Hierarchy</h2>
 <img src="./src/images/hierarchy.png" alt="hierarchy" title="hierarchy"/>
 
-<h2>Project Buildng Process</h2>
-<p>Editing...</p>
-
 <h2>Extensions</h2>
-<p>Editing...</p>
+<ul>
+  <li>"Computer" mode and "Friends" mode</li>
+  <p>Play against the computer's code or a code created by the friend</p>
+  <li>Multi-player</li>
+  <p>"Computer" mode allows max 4 players and "Friends" mode does from 2 to 4 players (one of them is a code maker)</p>
+  <li>Difficulty Level</li>
+  <p>"Easy" is with 4 numbers of the secret code, "Medium" is with 5 numbers, and "Hard" is with 6 numbers</p>
+  <li>Result and Ranking</li>
+  <p>Show the winner of the game as a result</p>
+  <p>If a code breaker wins the game, the result is stored in the database</p>
+  <p>The result data is fetched from the database and shown based on how many turns they took to guess the secret code</p>
+  <li>Personalization</li>
+  <p>Each player can add their name</p>
+  <li>Error Handling</h1>
+  <p>Any used input is handled if it is not a value asked</p>
+  <li>OS Adaptability</h1>
+  <p>Linux, Mac, and Windows (implemented to clear the console)</p>
+</ul>
 
