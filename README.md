@@ -39,13 +39,13 @@ python3 mastermind-game-oop
   <li>Difficulty Level</li>
   <p>"Easy" is with 4 numbers of the secret code, "Medium" is with 5 numbers, and "Hard" is with 6 numbers</p>
   <li>Result and Ranking</li>
-  <p>Show the winner of the game as a result</p>
-  <p>If a code breaker wins the game, the result is stored in the database</p>
-  <p>The result data is fetched from the database and shown based on how many turns they took to guess the secret code</p>
+  <p>Show the winner of the game as a result<br />
+  If a code breaker wins the game, the result is stored in the database<br />
+  The result data is fetched from the database and shown based on how many turns they took to guess the secret code</p>
   <li>Personalization</li>
   <p>Each player can add their name</p>
-  <li>Error Handling</h1>
+  <li>Error Handling</li>
   <p>Any used input is handled if it is not a value asked</p>
-  <li>OS Adaptability</h1>
+  <li>OS Adaptability</li>
   <p>Linux, Mac, and Windows (implemented to clear the console)</p>
 </ul>
