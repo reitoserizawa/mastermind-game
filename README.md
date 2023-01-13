@@ -27,7 +27,7 @@ python3 mastermind-game-oop
 <h2>Class/Database Diagram</h2>
 <img src="./src/images/db-diagram.png" alt="db-diagram" title="db-diagram"/>
 
-<h2>File Hierarchy</h2>
+<h2>File Structure</h2>
 <img src="./src/images/hierarchy.png" alt="hierarchy" title="hierarchy"/>
 
 <h2>Extensions</h2>
