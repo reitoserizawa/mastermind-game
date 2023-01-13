@@ -1,5 +1,6 @@
 <h1>Mastermind Game</h1>
 <p>This is Mastermind Game created by Python3 and SQLite. This game is for code breakers to guess the number combination of the secret code created by a code maker. You can play against the computer or friends. Code breakers have 10 attempts to guess the secret code.</p>
+<img src="./src/images/mastermind.jpeg" alt="mastermind" title="mastermind"/>
 
 <h2>Required Technology</h2>
 
