@@ -5,7 +5,7 @@
 <h2>Required Technology</h2>
 
 <p>Language: Python3</p>
-<p>OS: macOS, Linux or Windows</p>
+<p>OS: macOS(Recommended), Linux or Windows</p>
 <p>Other: Git (to clone this repo)</p>
 
 <h2>How to Play</h2>
