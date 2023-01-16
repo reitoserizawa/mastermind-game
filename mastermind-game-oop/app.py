@@ -21,7 +21,7 @@ def insert_result(result):
 def convert_list_to_string(data):
     return f"[{', '.join(str(num) for num in data)}]"
 
-# show the top 5 results in the ascending order of the round they took to figure out a secret code
+# show the top 10 results in the ascending order of the round they took to figure out a secret code
 def get_result():
     c.execute("SELECT * FROM result ORDER BY round ASC LIMIT 10")
     return c.fetchall()
