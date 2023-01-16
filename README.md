@@ -24,6 +24,16 @@ python3 mastermind-game-oop
 <p>3. Enjoy the game!</p>
 <img src="./src/images/start-game.png" alt="game-screen" title="game-screen"/>
 
+<h2>Demo</h2>
+
+![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)
+<p>https://youtu.be/XI0XqfEpzoM</p>
+
+
+https://user-images.githubusercontent.com/100802000/212769046-372e6d7a-3b43-4404-a3f5-8c9602ed14c2.mov
+
+
+
 <h2>Class/Database Diagram</h2>
 <img src="./src/images/db-diagram.png" alt="db-diagram" title="db-diagram"/>
 
