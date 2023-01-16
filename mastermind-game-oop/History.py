@@ -1,4 +1,4 @@
-# this class holds the guess and hint object in the dictionary
+# history class has a dictionary of guesses as a key and hints as a value
 class History:
     def __init__(self):
         self.history = {}

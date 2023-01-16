@@ -66,10 +66,11 @@ def play(game, code_maker, code_breaker_list):
                     break
             # if the guess matces the secret code:
                 # 1. create the result
-                # 2. insert the result in the database and display it in a ranking
+                # 2. insert the result in the database
+                # 3. display the ranking
             if guess.guess == code_maker.secret_code:
                 result = Result(player.name, code_maker.secret_code, 10-game.attempt+1)
-                print(f'\t  Congratulations, {player.name}! You won as a code breaker!')
+                print(f'\t  Congratulations, {player.name}! You guessed the secret code in the {make_ordinal(result.round)} round!')
                 app.insert_result(result)
                 # ranking.insert_ranking(result)
                 display_ranking()
@@ -83,7 +84,7 @@ def play(game, code_maker, code_breaker_list):
                 input("\t  Please enter to go to the next code breaker: ")
                 clear_console()
         game.attempt -= 1
-    # when there is no more attempt left, the code maker wins the game
+    # when there is no more attempt left for code breakers, the code maker wins the game
     print()
     print("\t  There is no more life left for code breakers...")
     print(f"\t  {code_maker.name} won as a code maker with a secret code of {code_maker.secret_code}")

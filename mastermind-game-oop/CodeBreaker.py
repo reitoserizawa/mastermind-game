@@ -1,6 +1,6 @@
 from History import History 
 
-# this class is the code maker and related to the history object to show their history of guesses and hints
+# code breaker class has name and history attributes to show their own history of guesses and hints
 class CodeBreaker:
     def __init__(self, name):
         self.name = name

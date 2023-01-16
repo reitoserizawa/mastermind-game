@@ -1,6 +1,6 @@
 import __main__
 
-# this class generates the guess
+# guess class generates a guess
 class Guess:
     def __init__(self, difficulty):
         self.guess = self.generate_guess(difficulty)

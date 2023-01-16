@@ -1,4 +1,4 @@
-# this class generayes the hint
+# hint class generates
     # 1. how many of the number from the guess is in the secret code
     # 2. from the number, how many of them are in the correct location
 class Hint:
