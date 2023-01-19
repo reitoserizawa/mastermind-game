@@ -46,7 +46,7 @@ class CodeMaker:
     
     # if the player is against the computer, it automatically generates a secret code form the api
     def autogenerate_secret_code(self, difficulty):
-        secret_code = requests.get(f"https://www.random.org/integers/?num={difficulty}&min=1&max=6&col=1&base=10&format=plain&rnd=new") # fetch the api data
+        secret_code = requests.get(f"https://www.random.org/integers/?num={difficulty}&min=0&max=7&col=1&base=10&format=plain&rnd=new") # fetch the api data
         secret_code = secret_code.content.split(b'\n') # access the byte string data from the api and convert it into a string diving by the new line
         secret_code = [int(num.decode()) for num in secret_code[:-1]] # convert the byte string to integer
         print()
