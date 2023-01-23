@@ -7,11 +7,11 @@ connection = sqlite3.connect('mastermind_game.db')
 c = connection.cursor()
 
 # create a table for the result
-# c.execute("""CREATE TABLE result (
-#     name text,
-#     secret_code text,
-#     round integer
-#     )""")
+c.execute("""CREATE TABLE result (
+    name text,
+    secret_code text,
+    round integer
+    )""")
 
 def insert_result(result):
     with connection:
@@ -23,7 +23,7 @@ def convert_list_to_string(data):
 
 # show the top 10 results in the ascending order of the round they took to figure out a secret code
 def get_result():
-    c.execute("SELECT * FROM result ORDER BY round ASC LIMIT 10")
+    c.execute("SELECT * FROM result ORDER BY round ASC LIMIT 10") # if the round is the same value as others, first person comes first (not alphabetic order)
     return c.fetchall()
 
 # commit the change
